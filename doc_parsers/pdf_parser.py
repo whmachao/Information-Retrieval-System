@@ -12,7 +12,7 @@ class Pypdf2Parser:
         self.doc_ids = list()
         self.term_doc_incidence_matrix = None
 
-    def build_term_doc_incidence_matrix(self):
+    def parse_docs(self):
         self.doc_ids = utils.get_file_url_list(self.parent_dir)
         all_doc_term_list = list()
 
@@ -61,5 +61,5 @@ class Pypdf2Parser:
 if __name__ == '__main__':
     pdf_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
     my_pdf_parser = Pypdf2Parser(pdf_dir)
-    my_pdf_parser.build_term_doc_incidence_matrix()
+    my_pdf_parser.parse_docs()
     print()
