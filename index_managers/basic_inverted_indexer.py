@@ -22,6 +22,7 @@ class BasicInvertedIndexer:
 if __name__ == '__main__':
     import os
     from doc_parsers import pdf_parser
+
     pdf_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
     my_pdf_parser = pdf_parser.Pypdf2Parser(pdf_dir)
     my_pdf_parser.parse_docs()
