@@ -20,14 +20,14 @@ class BooleanQueryModel:
 
 if __name__ == '__main__':
     import os
-    from doc_parsers import pdf_parser
+    from doc_parsers.pdf_parser import Pypdf2Parser
     from index_managers.basic_inverted_indexer import BasicInvertedIndexer
     from utilities import utils
     from query_managers.basic_query_manager import BasicQueryManager
 
     # 步骤一：解析原始文档
     pdf_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
-    my_pdf_parser = pdf_parser.Pypdf2Parser(pdf_dir)
+    my_pdf_parser = Pypdf2Parser(pdf_dir)
     my_pdf_parser.parse_docs()
 
     # 步骤二：构建索引
