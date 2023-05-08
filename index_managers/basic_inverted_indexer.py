@@ -1,4 +1,4 @@
-import numpy as np
+import time
 
 
 class BasicInvertedIndexer:
@@ -9,6 +9,7 @@ class BasicInvertedIndexer:
         self.index = dict().fromkeys(vocabulary)
 
     def build_index(self):
+        start_time = time.time()
         print(self.index.keys())
         for token_index in range(len(self.vocabulary)):
             indexes = dict().fromkeys(['doc_ids'])
@@ -17,6 +18,9 @@ class BasicInvertedIndexer:
                 if self.term_doc_incidence_matrix[doc_index, token_index] == 1:
                     indexes['doc_ids'].append(self.doc_ids[doc_index])
             self.index[self.vocabulary[token_index]] = indexes
+
+        end_time = time.time()
+        print('Time for build_index: ' + str(end_time - start_time) + ' seconds')
 
 
 if __name__ == '__main__':

@@ -1,23 +1,16 @@
 import time
 
 
-class BooleanQueryModel:
+class VectorQueryModel:
     def __init__(self, query_term_list, index):
         self.query_term_list = query_term_list
         self.index = index
         self.ranked_doc_ids = list()
-        print('您正在使用布尔模型进行检索')
+        print('您正在使用向量空间模型进行检索')
 
     def execute_query(self):
         start_time = time.time()
-        for term in self.query_term_list:
-            if term in self.index.keys():
-                term_inverted_index = self.index.get(term)
-                term_doc_ids = term_inverted_index.get('doc_ids')
-                if len(self.ranked_doc_ids) == 0:
-                    self.ranked_doc_ids = term_doc_ids
-                else:
-                    self.ranked_doc_ids = self.ranked_doc_ids.intersection(term_doc_ids)
+
         end_time = time.time()
         print('Time for execute_query: ' + str(end_time-start_time) + ' seconds')
 
@@ -58,7 +51,7 @@ if __name__ == '__main__':
         # 步骤四：依据用户查询在现有索引上进行基于向量空间模型的文档搜索及排序
         my_query_term_list = my_basic_query_manager.query_term_list
         my_index = my_basic_inverted_indexer.index
-        my_boolean_query_model = BooleanQueryModel(my_query_term_list, my_index)
+        my_boolean_query_model = VectorQueryModel(my_query_term_list, my_index)
         my_boolean_query_model.execute_query()
         my_ranked_doc_ids = my_boolean_query_model.ranked_doc_ids
         if len(my_ranked_doc_ids) == 0:

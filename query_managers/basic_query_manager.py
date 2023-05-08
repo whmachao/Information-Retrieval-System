@@ -1,4 +1,4 @@
-import jieba
+import jieba, time
 
 
 class BasicQueryManager:
@@ -7,7 +7,11 @@ class BasicQueryManager:
         self.query_term_list = None
 
     def parse_query(self):
+        start_time = time.time()
         self.query_term_list = jieba.lcut(self.query_str)
+
+        end_time = time.time()
+        print('Time for parse_query: ' + str(end_time - start_time) + ' seconds')
 
 
 if __name__ == '__main__':

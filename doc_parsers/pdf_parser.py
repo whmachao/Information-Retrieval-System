@@ -1,5 +1,5 @@
 from PyPDF2 import PdfReader
-import os
+import os, time
 from utilities import utils
 import jieba
 import numpy as np
@@ -13,6 +13,7 @@ class Pypdf2Parser:
         self.term_doc_incidence_matrix = None
 
     def parse_docs(self):
+        start_time = time.time()
         self.doc_ids = utils.get_file_url_list(self.parent_dir)
         all_doc_term_list = list()
 
@@ -54,8 +55,12 @@ class Pypdf2Parser:
                 curr_term = all_doc_term_list[doc_index][term_index]
                 curr_term_index = self.vocabulary.index(curr_term)
                 self.term_doc_incidence_matrix[doc_index, curr_term_index] = 1
+
         sparsity = np.count_nonzero(self.term_doc_incidence_matrix) / (shape[0]*shape[1])
         print('Sparsity of term_doc_incidence_matrix: ' + str(round(sparsity, 3)))
+
+        end_time = time.time()
+        print('Time for parse_docs: ' + str(end_time - start_time) + ' seconds')
 
 
 if __name__ == '__main__':
