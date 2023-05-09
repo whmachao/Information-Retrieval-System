@@ -23,6 +23,8 @@ def is_all_chinese(token_str):
 
 def cosine_similarity(vec_x, vec_y):
     num = vec_x.dot(vec_y.T)
+    if num == 0.0:
+        return None
     denom = np.linalg.norm(vec_x) * np.linalg.norm(vec_y)
     similarity = num / denom
     return similarity

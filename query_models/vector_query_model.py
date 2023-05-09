@@ -41,6 +41,9 @@ class VectorQueryModel:
         for row_index in range(all_doc_vectors.shape[0]):
             curr_doc_vec = all_doc_vectors[row_index]
             curr_similarity = cosine_similarity(query_vector, curr_doc_vec)
+            # 若用户查询向量为0，则结束查询过程
+            if curr_similarity is None:
+                return
             similarity_list.append(curr_similarity)
         # 依据查询向量与所有文档向量的相似度从大到小对所有文档进行排序
         for similarity_index in range(len(unique_doc_ids_list)):
