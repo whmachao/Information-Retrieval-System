@@ -1,6 +1,7 @@
 import os
 from os import listdir
 from os.path import join, isfile, isdir
+import numpy as np
 
 
 def get_file_url_list(parent_dir, file_type='pdf', file_url_list=list()):
@@ -18,6 +19,13 @@ def is_all_chinese(token_str):
         if not '\u4e00' <= _char <= '\u9fa5':
             return False
     return True
+
+
+def cosine_similarity(vec_x, vec_y):
+    num = vec_x.dot(vec_y.T)
+    denom = np.linalg.norm(vec_x) * np.linalg.norm(vec_y)
+    similarity = num / denom
+    return similarity
 
 
 if __name__ == '__main__':
