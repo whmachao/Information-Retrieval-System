@@ -2,6 +2,7 @@ import os
 from os import listdir
 from os.path import join, isfile, isdir
 import numpy as np
+import Constants
 
 
 def get_file_url_list(parent_dir, file_type='pdf', file_url_list=list()):
@@ -28,6 +29,11 @@ def cosine_similarity(vec_x, vec_y):
     denom = np.linalg.norm(vec_x) * np.linalg.norm(vec_y)
     similarity = num / denom
     return similarity
+
+
+def debug_print(debug_info, mode=Constants.DEBUG_MODE):
+    if mode:
+        print(debug_info)
 
 
 if __name__ == '__main__':

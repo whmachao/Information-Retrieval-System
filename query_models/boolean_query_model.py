@@ -20,7 +20,7 @@ class BooleanQueryModel:
                     set_ranked_doc_ids = set(self.ranked_doc_ids).intersection(set(term_doc_ids))
                     self.ranked_doc_ids = list(set_ranked_doc_ids)
         end_time = time.time()
-        print('Time for execute_query: ' + str(end_time-start_time) + ' seconds')
+        utils.debug_print('Time for execute_query: ' + str(end_time-start_time) + ' seconds')
 
 
 if __name__ == '__main__':

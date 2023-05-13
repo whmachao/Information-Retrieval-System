@@ -1,4 +1,5 @@
 import time
+from utilities import utils
 
 
 class BasicInvertedIndexer:
@@ -10,7 +11,7 @@ class BasicInvertedIndexer:
 
     def build_index(self):
         start_time = time.time()
-        print(self.index.keys())
+        utils.debug_print(self.index.keys())
         for token_index in range(len(self.vocabulary)):
             indexes = dict().fromkeys(['doc_ids'])
             indexes['doc_ids'] = list()
@@ -20,7 +21,7 @@ class BasicInvertedIndexer:
             self.index[self.vocabulary[token_index]] = indexes
 
         end_time = time.time()
-        print('Time for build_index: ' + str(end_time - start_time) + ' seconds')
+        utils.debug_print('Time for build_index: ' + str(end_time - start_time) + ' seconds')
 
 
 if __name__ == '__main__':

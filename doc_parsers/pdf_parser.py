@@ -21,7 +21,7 @@ class Pypdf2Parser:
             reader = PdfReader(self.doc_ids[file_index])
 
             # Print the number of pages in the PDF
-            print(f"There are {len(reader.pages)} Pages")
+            utils.debug_print(f"There are {len(reader.pages)} Pages")
 
             curr_doc_term_list = list()
             # Go through every page and get the text
@@ -30,19 +30,19 @@ class Pypdf2Parser:
                 page_str = page.extract_text()
                 # print(page_str)
                 raw_seg_list = jieba.lcut(page_str)
-                print('Start to process page ' + str(page_num+1) + ' out of ' + str(len(reader.pages)))
-                print('Before: ' + str(len(raw_seg_list)))
+                utils.debug_print('Start to process page ' + str(page_num+1) + ' out of ' + str(len(reader.pages)))
+                utils.debug_print('Before: ' + str(len(raw_seg_list)))
                 # print("Paddle Mode: " + ','.join(raw_seg_list))
                 seg_list = list()
                 for token_index in range(len(raw_seg_list)):
                     if utils.is_all_chinese(raw_seg_list[token_index]):
                         seg_list.append(raw_seg_list[token_index])
-                print('After: ' + str(len(seg_list)))
+                utils.debug_print('After: ' + str(len(seg_list)))
                 # print("Paddle Mode: " + ','.join(seg_list))
                 self.vocabulary.extend(seg_list)
                 self.vocabulary = list(set(self.vocabulary))
-                print('Size of vocabulary: ' + str(len(self.vocabulary)))
-                print(self.vocabulary)
+                utils.debug_print('Size of vocabulary: ' + str(len(self.vocabulary)))
+                utils.debug_print(self.vocabulary)
 
                 curr_doc_term_list.extend(seg_list)
             curr_doc_term_list = list(set(curr_doc_term_list))
@@ -57,10 +57,10 @@ class Pypdf2Parser:
                 self.term_doc_incidence_matrix[doc_index, curr_term_index] = 1
 
         sparsity = np.count_nonzero(self.term_doc_incidence_matrix) / (shape[0]*shape[1])
-        print('Sparsity of term_doc_incidence_matrix: ' + str(round(sparsity, 3)))
+        utils.debug_print('Sparsity of term_doc_incidence_matrix: ' + str(round(sparsity, 3)))
 
         end_time = time.time()
-        print('Time for parse_docs: ' + str(end_time - start_time) + ' seconds')
+        utils.debug_print('Time for parse_docs: ' + str(end_time - start_time) + ' seconds')
 
 
 if __name__ == '__main__':

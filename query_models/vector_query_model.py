@@ -53,7 +53,7 @@ class VectorQueryModel:
             self.ranked_doc_ids.append(top_ranked_doc_id)
             similarity_list[top_ranked_doc_index] = -0.01
         end_time = time.time()
-        print('Time for execute_query: ' + str(end_time-start_time) + ' seconds')
+        utils.debug_print('Time for execute_query: ' + str(end_time-start_time) + ' seconds')
 
 
 if __name__ == '__main__':
