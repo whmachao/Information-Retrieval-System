@@ -2,7 +2,7 @@ import os
 from os import listdir
 from os.path import join, isfile, isdir
 import numpy as np
-import Constants
+from utilities import Constants
 
 
 def get_file_url_list(parent_dir, file_type='pdf', file_url_list=list()):

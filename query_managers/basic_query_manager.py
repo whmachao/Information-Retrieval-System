@@ -1,4 +1,6 @@
-import jieba, time
+import jieba
+import time
+from utilities import utils
 
 
 class BasicQueryManager:
@@ -19,7 +21,6 @@ if __name__ == '__main__':
     from doc_parsers.pdf_parser import Pypdf2Parser
     from index_managers.basic_inverted_indexer import BasicInvertedIndexer
     from utilities import utils
-    from query_managers.basic_query_manager import BasicQueryManager
 
     # 步骤一：解析原始文档
     pdf_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
@@ -46,4 +47,3 @@ if __name__ == '__main__':
         my_basic_query_manager = BasicQueryManager(my_query_str)
         my_basic_query_manager.parse_query()
         print(my_basic_query_manager.query_term_list)
-

@@ -1,5 +1,6 @@
 from PyPDF2 import PdfReader
-import os, time
+import os
+import time
 from utilities import utils
 import jieba
 import numpy as np
