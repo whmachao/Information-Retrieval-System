@@ -66,6 +66,8 @@ class Pypdf2Parser:
 
 if __name__ == '__main__':
     # 步骤一：解析原始文档
+    start_time = time.time()
     pdf_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
     my_pdf_parser = Pypdf2Parser(pdf_dir)
     my_pdf_parser.parse_docs()
+    print('Time for parsing docs: ' + str(time.time() - start_time) + ' seconds')
