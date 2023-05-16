@@ -1,4 +1,5 @@
 import time
+from utilities import utils
 
 
 class BooleanQueryModel:
@@ -20,31 +21,30 @@ class BooleanQueryModel:
                     set_ranked_doc_ids = set(self.ranked_doc_ids).intersection(set(term_doc_ids))
                     self.ranked_doc_ids = list(set_ranked_doc_ids)
         end_time = time.time()
-        utils.debug_print('Time for execute_query: ' + str(end_time-start_time) + ' seconds')
+        utils.debug_print('Time for execute_query: ' + str(end_time - start_time) + ' seconds')
 
 
 if __name__ == '__main__':
     import os
     from doc_parsers.pdf_parser import Pypdf2Parser
     from index_managers.basic_inverted_indexer import BasicInvertedIndexer
-    from utilities import utils
     from query_managers.basic_query_manager import BasicQueryManager
 
     # 步骤一：解析原始文档
-    start_time = time.time()
+    my_start_time = time.time()
     pdf_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
     my_pdf_parser = Pypdf2Parser(pdf_dir)
     my_pdf_parser.parse_docs()
-    print('Time for parsing docs: ' + str(time.time() - start_time) + ' seconds')
+    print('Time for parsing docs: ' + str(time.time() - my_start_time) + ' seconds')
 
     # 步骤二：构建索引
-    start_time = time.time()
+    my_start_time = time.time()
     my_doc_ids = my_pdf_parser.doc_ids
     my_vocabulary = my_pdf_parser.vocabulary
     my_term_doc_incidence_matrix = my_pdf_parser.term_doc_incidence_matrix
     my_basic_inverted_indexer = BasicInvertedIndexer(my_doc_ids, my_vocabulary, my_term_doc_incidence_matrix)
     my_basic_inverted_indexer.build_index()
-    print('Time for building index: ' + str(time.time() - start_time) + ' seconds')
+    print('Time for building index: ' + str(time.time() - my_start_time) + ' seconds')
 
     exit_flag = True
     while exit_flag:
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         print(my_basic_query_manager.query_term_list)
 
         # 步骤四：依据用户查询在现有索引上进行基于向量空间模型的文档搜索及排序
-        start_time = time.time()
+        my_start_time = time.time()
         my_query_term_list = my_basic_query_manager.query_term_list
         my_index = my_basic_inverted_indexer.index
         my_boolean_query_model = BooleanQueryModel(my_query_term_list, my_index)
@@ -74,6 +74,6 @@ if __name__ == '__main__':
             print('相关文档如下所示：')
             for doc_index in range(len(my_ranked_doc_ids)):
                 print(my_ranked_doc_ids[doc_index])
-        print('Time for executing query: ' + str(time.time() - start_time) + ' seconds')
+        print('Time for executing query: ' + str(time.time() - my_start_time) + ' seconds')
 
     print('本次信息检索系统设计与实现演示结束，祝大家学有所得！')

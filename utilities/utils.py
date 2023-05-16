@@ -36,6 +36,17 @@ def debug_print(debug_info, mode=Constants.DEBUG_MODE):
         print(debug_info)
 
 
+def create_query_model(query_model_name, query_term_list, index):
+    if query_model_name == Constants.QUERY_MODEL_NAMES[0]:
+        from query_models.boolean_query_model import BooleanQueryModel
+        return BooleanQueryModel(query_term_list, index)
+    if query_model_name == Constants.QUERY_MODEL_NAMES[1]:
+        from query_models.vector_query_model import VectorQueryModel
+        return VectorQueryModel(query_term_list, index)
+
+    raise ValueError(query_model_name + ' is not a supported query model!')
+
+
 if __name__ == '__main__':
     my_parent_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
     my_file_url_list = get_file_url_list(my_parent_dir)
